@@ -1,0 +1,55 @@
+{{ define "main" }}
+<article class="plan-container">
+
+    <header class="plan-header">
+        
+        <div class="plan-meta-top">
+            <span class="status-pill {{ .Params.status | urlize }}">
+                {{ if eq .Params.status "Completed" }} ✨ Completed
+                {{ else if eq .Params.status "Booked" }} 🎟️ Booked
+                {{ else }} 💭 Dreaming {{ end }}
+            </span>
+            
+            {{ with .Params.suggested_by }}
+            <span class="plan-credit">Concept by: {{ . }}</span>
+            {{ end }}
+        </div>
+
+        <h1 class="plan-title">{{ .Title }}</h1>
+
+        <div class="plan-info-grid">
+            {{ with .Params.target_date }}
+            <div class="info-item">
+                <span class="label">When</span>
+                <span class="value">{{ . | time.Format "Jan 2, 2006" }}</span>
+            </div>
+            {{ end }}
+
+            {{ with .Params.location }}
+            <div class="info-item">
+                <span class="label">Where</span>
+                <span class="value">{{ . }}</span>
+            </div>
+            {{ end }}
+
+            {{ with .Params.budget }}
+            <div class="info-item">
+                <span class="label">Est. Cost</span>
+                <span class="value">{{ . }}</span>
+            </div>
+            {{ end }}
+        </div>
+    </header>
+
+    <div class="ticket-rip"></div>
+
+    <div class="plan-body">
+        {{ .Content }}
+    </div>
+
+    <div class="post-nav">
+        <a href="/plans">← Back to All Plans</a>
+    </div>
+
+</article>
+{{ end }}

@@ -1,22 +1,224 @@
+:root {
+    /* --- PALETTE: Sunday Morning (Warm & Organic) --- */
+    --bg-color: #FDFCF8;       /* Warm Alabaster */
+    --text-color: #3E3C38;     /* Deep Warm Charcoal */
+    --accent-color: #C69C6D;   /* Latte / Raw Wood */
+    --link-color: #8A9A5B;     /* Sage Green */
+    
+    /* --- TYPOGRAPHY: The "Cute/Scrapbook" Vibe --- */
+    --font-heading: 'Gochi Hand', cursive;
+    --font-body: 'Nunito', sans-serif;
+}
+
+/* Global Reset */
 body {
-  color: #222;
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin: 1rem;
-  max-width: 768px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7; /* slightly more breathing room for rounded fonts */
+    margin: 0;
+    padding: 0;
 }
 
-header {
-  border-bottom: 1px solid #222;
-  margin-bottom: 1rem;
+/* Container */
+main, header, footer {
+    max-width: 800px; 
+    margin: 0 auto;
+    padding: 2rem;
 }
 
-footer {
-  border-top: 1px solid #222;
-  margin-top: 1rem;
+/* Typography Updates */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--text-color);
+    line-height: 1.2;
 }
 
+/* Links */
 a {
-  color: #00e;
-  text-decoration: none;
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 2px dotted var(--link-color); /* Dotted line looks cuter */
+    transition: all 0.2s;
+}
+
+a:hover {
+    background-color: rgba(138, 154, 91, 0.1); /* Subtle highlight on hover */
+    border-bottom-style: solid;
+}
+
+/* --- PLAN CARD STYLES (Updated for new fonts) --- */
+
+.plan-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: #fff; 
+    border: 2px solid #eee; /* Slightly thicker border for a "card" feel */
+    border-radius: 12px; /* Rounder corners to match Nunito */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.plan-header {
+    padding: 2.5rem;
+    background-color: #fff;
+    text-align: center;
+}
+
+.plan-title {
+    margin: 1rem 0 2rem 0;
+    font-size: 3rem; /* Gochi Hand needs to be big! */
+}
+
+/* Status Pills */
+.status-pill {
+    font-family: var(--font-body); /* Keep metadata readable */
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-pill.dreaming { background-color: #f0f0f0; color: #888; }
+.status-pill.booked { background-color: var(--accent-color); color: #fff; }
+.status-pill.completed { background-color: var(--link-color); color: #fff; }
+
+/* Info Grid */
+.info-item .label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #aaa;
+    letter-spacing: 1.5px;
+}
+
+.info-item .value {
+    font-family: var(--font-heading); /* Handwritten details */
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+/* The Ticket Rip */
+.ticket-rip {
+    height: 4px;
+    /* Dots instead of lines for the scrapbook look */
+    background-image: radial-gradient(circle, #ccc 2px, transparent 2.5px);
+    background-size: 15px 15px;
+    background-position: bottom center;
+    background-repeat: repeat-x;
+    margin: 0 2rem;
+}
+
+.plan-body {
+    padding: 3rem;
+    background-color: #fafafa;
+}
+
+
+
+/* --- PLANS SECTION (Grid Layout) --- */
+
+.plans-index-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.plans-index-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color); /* Latte color */
+}
+
+.plans-intro {
+    font-size: 1.2rem;
+    color: #999;
+}
+
+/* The Grid */
+.plans-grid {
+    display: grid;
+    /* Creates a responsive grid that fits as many cards as possible */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* The Preview Card */
+.plan-preview-card {
+    background: #fff;
+    border-radius: 16px; /* Matching Nunito softness */
+    border: 1px solid #eee;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+/* Make the whole card clickable */
+.card-link-wrapper {
+    display: block;
+    padding: 1.5rem;
+    height: 100%;
+    color: inherit; /* Inherit text color, don't turn blue */
+    text-decoration: none; /* Remove dotted underline from global styles */
+    border: none; /* Remove border from global styles */
+}
+
+/* Hover Effects */
+.plan-preview-card:hover {
+    transform: translateY(-5px) rotate(1deg); /* Cute tilt */
+    box-shadow: 0 10px 25px rgba(198, 156, 109, 0.15); /* Soft Latte shadow */
+    border-color: var(--accent-color);
+}
+
+/* Card Internals */
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.mini-date {
+    font-family: var(--font-heading);
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.1;
+    color: var(--text-color);
+}
+
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 700;
+}
+
+.location-tag {
+    color: var(--link-color); /* Sage Green */
+}
+
+
+.gochi-hand-regular {
+  font-family: "Gochi Hand", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.nunito-regular {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
