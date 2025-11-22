@@ -49,6 +49,41 @@ a:hover {
     border-bottom-style: solid;
 }
 
+/* --- NAVIGATION --- */
+nav {
+    display: flex;
+    justify-content: center; /* Centers the menu */
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+nav a {
+    font-family: var(--font-heading); /* Handwritten font */
+    font-size: 1.4rem;
+    color: var(--text-color);
+    border: none; /* Remove the dotted line from links */
+    position: relative;
+}
+
+/* Cute "marker circle" effect on hover */
+nav a:hover {
+    background: none; 
+    color: var(--accent-color); /* Latte color */
+}
+
+nav a:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 8px;
+    background-color: rgba(198, 156, 109, 0.2); /* Super subtle highlighter mark */
+    border-radius: 4px;
+    transform: rotate(-2deg); /* Imperfect highlighter stroke */
+    z-index: -1;
+}
+
 /* --- PLAN CARD STYLES (Updated for new fonts) --- */
 
 .plan-container {
@@ -221,4 +256,187 @@ a:hover {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+/* --- STATS GRID --- */
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 1.5rem;
+    width: 140px;
+    text-align: center;
+    
+    /* The "Sticky Note" Look */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    border-radius: 2px; /* Slightly sharp edges like paper */
+    
+    /* The "Scattered" Rotation */
+    transition: transform 0.3s ease;
+}
+
+/* Rotate every odd card slightly left, even card slightly right */
+.stat-card:nth-child(odd) { transform: rotate(-2deg); }
+.stat-card:nth-child(even) { transform: rotate(2deg); }
+
+/* Hover effect */
+.stat-card:hover {
+    transform: scale(1.1) rotate(0deg) !important; /* Pop up straight */
+    z-index: 10;
+    box-shadow: 0 10px 25px rgba(198, 156, 109, 0.2);
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-heading); /* Gochi Hand */
+    font-size: 3.5rem;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-family: var(--font-body); /* Nunito */
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    font-weight: 700;
+}
+
+/* Make the Days counter distinct */
+.main-stat .stat-number {
+    color: var(--link-color); /* Sage Green */
+}
+
+/* --- VERTICAL TIMELINE --- */
+
+.timeline-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* The Vertical "Thread" */
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 100px; /* Position line slightly to the right of dates */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-image: linear-gradient(to bottom, #ccc 50%, rgba(255,255,255,0) 0%);
+    background-position: left;
+    background-size: 2px 15px; /* Dashed effect */
+    background-repeat: repeat-y;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+/* 1. The Date (Left Column) */
+.timeline-date {
+    width: 80px; /* Fixed width */
+    text-align: right;
+    padding-right: 2rem;
+    font-family: var(--font-heading); /* Gochi Hand */
+    font-size: 1.4rem;
+    color: var(--accent-color); /* Latte */
+    line-height: 1;
+}
+
+.timeline-date .year {
+    display: block;
+    font-size: 0.8rem;
+    color: #ccc;
+    font-family: var(--font-body);
+}
+
+/* 2. The Marker (The Dot) */
+.timeline-marker {
+    position: absolute;
+    left: 94px; /* Centers it on the 100px line */
+    width: 14px;
+    height: 14px;
+    background-color: var(--bg-color); /* Match page bg */
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    z-index: 2;
+    top: 5px;
+}
+
+/* Hover effect for marker */
+.timeline-item:hover .timeline-marker {
+    background-color: var(--accent-color);
+    transform: scale(1.2);
+}
+
+/* 3. The Card (Right Column) */
+.timeline-content {
+    flex: 1;
+    padding-left: 2rem;
+}
+
+.timeline-card {
+    display: block;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px; /* Nunito soft corners */
+    border: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+    text-decoration: none;
+    border-bottom: none; /* Override global link style */
+}
+
+.timeline-card:hover {
+    transform: translateX(5px); /* Slide right on hover */
+    border-color: var(--accent-color);
+}
+
+.timeline-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.timeline-card .location {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0;
+}
+
+/* The "Bucket List" Divider */
+.timeline-break {
+    text-align: center;
+    margin: 3rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-break span {
+    background-color: var(--bg-color);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading);
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+/* --- MOBILE ADJUSTMENT --- */
+/* On phones, hide the date column and just show the cards */
+@media (max-width: 600px) {
+    .timeline-wrapper::before { left: 20px; }
+    .timeline-date { display: none; }
+    .timeline-marker { left: 14px; }
+    .timeline-content { padding-left: 3rem; }
 }

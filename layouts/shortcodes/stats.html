@@ -1,0 +1,38 @@
+<div class="stats-container">
+    
+    <div class="stat-card main-stat">
+        <span class="stat-number" id="days-counter">...</span>
+        <span class="stat-label">Days Together</span>
+    </div>
+
+    {{ if .Get "coffees" }}
+    <div class="stat-card">
+        <span class="stat-number">{{ .Get "coffees" }}</span>
+        <span class="stat-label">Coffees Shared</span>
+    </div>
+    {{ end }}
+
+    {{ if .Get "countries" }}
+    <div class="stat-card">
+        <span class="stat-number">{{ .Get "countries" }}</span>
+        <span class="stat-label">Trips Taken</span>
+    </div>
+    {{ end }}
+    
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the start date from the shortcode parameter
+        const startDate = new Date("{{ .Get "start" }}");
+        const today = new Date();
+        
+        // Calculate difference in time
+        const diffTime = Math.abs(today - startDate);
+        // Convert to days (1000ms * 60s * 60min * 24h)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+        // Update the HTML
+        document.getElementById("days-counter").innerText = diffDays;
+    });
+</script>

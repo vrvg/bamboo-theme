@@ -1,45 +1,53 @@
 {{ define "main" }}
 
 <header class="plans-index-header">
-    <h1>The Master Plan 🗺️</h1>
-    <p class="plans-intro">
-        We have <strong>{{ len .Pages }}</strong> ideas so far. 
-        Let's get to work!
-    </p>
+    <h1>Our Timeline 🧶</h1>
+    <p class="plans-intro">From dreams to memories.</p>
 </header>
 
-<div class="plans-grid">
-    {{ range .Pages }}
-    <article class="plan-preview-card">
-        <a href="{{ .RelPermalink }}" class="card-link-wrapper">
-            
-            <div class="card-top">
-                <span class="status-pill {{ .Params.status | urlize }}">
-                    {{ if eq .Params.status "Completed" }} ✨ Done
-                    {{ else if eq .Params.status "Booked" }} 🎟️ Booked
-                    {{ else }} 💭 Dreaming {{ end }}
-                </span>
-                
-                {{ with .Params.target_date }}
-                <span class="mini-date">{{ . | time.Format "Jan 06" }}</span>
-                {{ end }}
-            </div>
+<div class="timeline-wrapper">
 
-            <h2 class="card-title">{{ .Title }}</h2>
+    {{ $dated := where .Pages "Params.target_date" "!=" nil }}
+    {{ range ($dated.ByParam "target_date") }}
+    
+    <div class="timeline-item">
+        <div class="timeline-marker"></div>
 
-            <div class="card-meta">
+        <div class="timeline-date">
+            {{ .Params.target_date | time.Format "Jan 02" }}
+            <span class="year">{{ .Params.target_date | time.Format "2006" }}</span>
+        </div>
+
+        <div class="timeline-content">
+            <a href="{{ .RelPermalink }}" class="timeline-card">
+                <span class="status-pill {{ .Params.status | urlize }}">{{ .Params.status }}</span>
+                <h3>{{ .Title }}</h3>
                 {{ if .Params.location }}
-                <span class="location-tag">📍 {{ .Params.location }}</span>
+                <p class="location">📍 {{ .Params.location }}</p>
                 {{ end }}
-                
-                {{ if .Params.suggested_by }}
-                <span class="author-tag">By: {{ .Params.suggested_by }}</span>
-                {{ end }}
-            </div>
-
-        </a>
-    </article>
+            </a>
+        </div>
+    </div>
     {{ end }}
+
+    <div class="timeline-break">
+        <span> Someday / Dreaming ☁️ </span>
+    </div>
+
+    {{ $undated := where .Pages "Params.target_date" "eq" nil }}
+    {{ range $undated }}
+    <div class="timeline-item dreaming-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-date">???</div>
+        <div class="timeline-content">
+            <a href="{{ .RelPermalink }}" class="timeline-card">
+                <span class="status-pill {{ .Params.status | urlize }}">Dreaming</span>
+                <h3>{{ .Title }}</h3>
+            </a>
+        </div>
+    </div>
+    {{ end }}
+
 </div>
 
 {{ end }}
