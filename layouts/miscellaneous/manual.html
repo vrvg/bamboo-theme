@@ -1,0 +1,72 @@
+{{ define "main" }}
+<div class="manual-container">
+
+    <header class="manual-header">
+        <h1>Operating Manual 🧸</h1>
+        <div class="manual-meta">
+            <p><strong>Model:</strong> Vangelis & Soohyun (Ver. 2025)</p>
+            <p><strong>Est:</strong> 2024 | <strong>Loc:</strong> California</p>
+        </div>
+        
+        <div class="manual-intro-text">
+            {{ .Content }}
+        </div>
+    </header>
+
+    <hr class="dashed-line">
+
+    <div class="profile-grid">
+
+        <div class="profile-card card-reflector">
+            <div class="card-icon">🪞</div>
+            <h3>The Reflector</h3>
+            <p class="role">Vangelis (5/1)</p>
+            <ul class="specs-list">
+                <li><strong>Superpower:</strong> The Barometer. Feels the room instantly.</li>
+                <li><strong>Strategy:</strong> Waits 28 days (Lunar Cycle).</li>
+                <li><strong>Mode:</strong> Sampling & Curating.</li>
+                <li><strong>Needs:</strong> A view of the horizon (Shores).</li>
+            </ul>
+        </div>
+
+        <div class="profile-card card-generator">
+            <div class="card-icon">⚡</div>
+            <h3>The Generator</h3>
+            <p class="role">Soohyun (3/5)</p>
+            <ul class="specs-list">
+                <li><strong>Superpower:</strong> The Engine. Infinite energy.</li>
+                <li><strong>Strategy:</strong> Responds to Yes/No questions.</li>
+                <li><strong>Mode:</strong> Trial & Error (Experimenter).</li>
+                <li><strong>Needs:</strong> Acoustics & Activity (Valleys).</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <hr class="dashed-line">
+
+    <div class="troubleshoot-section">
+        <h3>Troubleshooting Guide 🛠️</h3>
+        
+        <div class="troubleshoot-item">
+            <h4>🔴 If Vangelis is silent...</h4>
+            <p>He is sampling the environment. <strong>Fix:</strong> Give him a "Shore" (window view) and wait.</p>
+        </div>
+
+        <div class="troubleshoot-item">
+            <h4>🔴 If Soohyun is stuck...</h4>
+            <p>She is in a Triple Split gap. <strong>Fix:</strong> Change location (coffee shop) and ask Yes/No questions.</p>
+        </div>
+
+        <div class="troubleshoot-item">
+            <h4>🔴 Big Decisions</h4>
+            <p>Soohyun waits for the Wave (3 days). Vangelis waits for the Moon (28 days).</p>
+        </div>
+    </div>
+
+    <div class="manual-footer">
+        <p><em>Warranty valid as long as coffee is provided.</em></p>
+    </div>
+
+</div>
+{{ end }}

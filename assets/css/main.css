@@ -1,3 +1,6 @@
+/* =========================================
+   1. VARIABLES & CONFIG
+   ========================================= */
 :root {
     /* --- PALETTE: Sunday Morning (Warm & Organic) --- */
     --bg-color: #FDFCF8;       /* Warm Alabaster */
@@ -5,31 +8,36 @@
     --accent-color: #C69C6D;   /* Latte / Raw Wood */
     --link-color: #8A9A5B;     /* Sage Green */
     
-    /* --- TYPOGRAPHY: The "Cute/Scrapbook" Vibe --- */
+    /* --- TYPOGRAPHY --- */
     --font-heading: 'Gochi Hand', cursive;
     --font-body: 'Nunito', sans-serif;
 }
 
-/* Global Reset */
+/* =========================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================= */
+*, *::before, *::after {
+    box-sizing: border-box; /* Crucial: Prevents padding from breaking layouts */
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-body);
     font-weight: 400;
-    line-height: 1.7; /* slightly more breathing room for rounded fonts */
+    line-height: 1.7; 
     margin: 0;
     padding: 0;
 }
 
-/* Container */
 main, header, footer {
     max-width: 800px; 
     margin: 0 auto;
     padding: 2rem;
 }
 
-/* Typography Updates */
-h1, h2, h3 {
+/* Typography */
+h1, h2, h3, h4, h5 {
     font-family: var(--font-heading);
     font-weight: 400;
     color: var(--text-color);
@@ -40,58 +48,248 @@ h1, h2, h3 {
 a {
     color: var(--link-color);
     text-decoration: none;
-    border-bottom: 2px dotted var(--link-color); /* Dotted line looks cuter */
-    transition: all 0.2s;
+    border-bottom: 2px dotted var(--link-color); /* The "Cute" Dotted Line */
+    transition: all 0.2s ease;
 }
 
 a:hover {
-    background-color: rgba(138, 154, 91, 0.1); /* Subtle highlight on hover */
+    background-color: rgba(138, 154, 91, 0.1); 
     border-bottom-style: solid;
 }
 
-/* --- NAVIGATION --- */
+/* Accessibility Focus State */
+a:focus {
+    outline: 2px dashed var(--accent-color);
+    outline-offset: 4px;
+}
+
+/* Font Utilities */
+.gochi-hand-regular { font-family: "Gochi Hand", cursive; }
+.nunito-regular { font-family: "Nunito", sans-serif; }
+
+/* =========================================
+   3. NAVIGATION
+   ========================================= */
 nav {
     display: flex;
-    justify-content: center; /* Centers the menu */
+    justify-content: center;
     gap: 2rem;
     margin-top: 1rem;
+    flex-wrap: wrap; /* Allows wrapping on tiny screens */
 }
 
 nav a {
-    font-family: var(--font-heading); /* Handwritten font */
+    font-family: var(--font-heading);
     font-size: 1.4rem;
     color: var(--text-color);
-    border: none; /* Remove the dotted line from links */
+    border: none; /* Override global link style */
     position: relative;
 }
 
-/* Cute "marker circle" effect on hover */
+/* The Highlighter Effect */
 nav a:hover {
     background: none; 
-    color: var(--accent-color); /* Latte color */
+    color: var(--accent-color); 
 }
 
 nav a:hover::after {
     content: '';
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    left: -5px;
+    bottom: 2px;
+    width: calc(100% + 10px);
     height: 8px;
-    background-color: rgba(198, 156, 109, 0.2); /* Super subtle highlighter mark */
+    background-color: rgba(198, 156, 109, 0.2); 
     border-radius: 4px;
-    transform: rotate(-2deg); /* Imperfect highlighter stroke */
+    transform: rotate(-2deg); 
     z-index: -1;
 }
 
-/* --- PLAN CARD STYLES (Updated for new fonts) --- */
+/* =========================================
+   4. HOMEPAGE: THE FRIDGE DASHBOARD
+   ========================================= */
+.fridge-container {
+    text-align: center;
+    padding-bottom: 4rem;
+}
 
+.fridge-header h1 {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    transform: rotate(-2deg); 
+}
+
+.fridge-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start; 
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+/* Fridge Items Common Styles */
+.fridge-item {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+}
+
+.fridge-item:hover {
+    transform: scale(1.05) rotate(0deg) !important; 
+    z-index: 20;
+}
+
+/* Sticky Notes */
+.fridge-note {
+    width: 240px;
+    padding: 2rem;
+    background: #fffbe0; 
+    box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
+    transform: rotate(-3deg);
+    text-align: left;
+    font-family: var(--font-heading);
+}
+
+.sticky-blue { background: #e0f7fa; transform: rotate(2deg); }
+
+.tape {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    width: 90px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    backdrop-filter: blur(1px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.note-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #999;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.handwritten-title {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin: 1rem 0;
+    color: var(--text-color);
+}
+
+.note-details p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.drawn-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 8px 16px;
+    border: 2px solid var(--text-color);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Sketchy border */
+    color: var(--text-color);
+    font-size: 1.1rem;
+    text-decoration: none;
+    background: none; 
+}
+
+/* Polaroids */
+.fridge-polaroid {
+    background: #fff;
+    padding: 1rem 1rem 3.5rem 1rem; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transform: rotate(4deg);
+    width: 240px;
+}
+
+.pin {
+    position: absolute;
+    top: -15px;
+    right: 50%;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.polaroid-frame {
+    width: 100%;
+    height: 220px;
+    background: #333; 
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.polaroid-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.15) contrast(1.1); 
+}
+
+.no-photo { font-size: 3rem; color: #555; }
+
+.polaroid-caption {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-family: var(--font-heading);
+}
+
+.polaroid-caption a {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    border: none;
+}
+
+.caption-label {
+    font-size: 0.7rem;
+    color: #aaa;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    margin-bottom: 5px;
+}
+
+/* Magnets */
+.fridge-magnet {
+    width: 100px;
+    height: 100px;
+    background: var(--link-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-5deg);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+}
+
+.fridge-magnet a {
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    border: none;
+}
+
+.magnet-icon { display: block; font-size: 1.8rem; }
+.magnet-text { font-size: 0.9rem; font-family: var(--font-body); font-weight: 700; }
+
+/* =========================================
+   5. PLANS ARCHETYPE (Tickets & Timeline)
+   ========================================= */
+
+/* The Ticket Card (Individual Plan View) */
 .plan-container {
     max-width: 700px;
     margin: 2rem auto;
     background: #fff; 
-    border: 2px solid #eee; /* Slightly thicker border for a "card" feel */
-    border-radius: 12px; /* Rounder corners to match Nunito */
+    border: 2px solid #eee; 
+    border-radius: 12px; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     overflow: hidden;
 }
@@ -104,44 +302,11 @@ nav a:hover::after {
 
 .plan-title {
     margin: 1rem 0 2rem 0;
-    font-size: 3rem; /* Gochi Hand needs to be big! */
+    font-size: 3rem; 
 }
 
-/* Status Pills */
-.status-pill {
-    font-family: var(--font-body); /* Keep metadata readable */
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.status-pill.dreaming { background-color: #f0f0f0; color: #888; }
-.status-pill.booked { background-color: var(--accent-color); color: #fff; }
-.status-pill.completed { background-color: var(--link-color); color: #fff; }
-
-/* Info Grid */
-.info-item .label {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    color: #aaa;
-    letter-spacing: 1.5px;
-}
-
-.info-item .value {
-    font-family: var(--font-heading); /* Handwritten details */
-    font-size: 1.5rem;
-    color: var(--text-color);
-}
-
-/* The Ticket Rip */
 .ticket-rip {
     height: 4px;
-    /* Dots instead of lines for the scrapbook look */
     background-image: radial-gradient(circle, #ccc 2px, transparent 2.5px);
     background-size: 15px 15px;
     background-position: bottom center;
@@ -154,111 +319,253 @@ nav a:hover::after {
     background-color: #fafafa;
 }
 
-
-
-/* --- PLANS SECTION (Grid Layout) --- */
-
-.plans-index-header {
-    text-align: center;
-    margin-bottom: 3rem;
+/* Status Pills */
+.status-pill {
+    font-family: var(--font-body);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+.status-pill.dreaming { background-color: #f0f0f0; color: #888; }
+.status-pill.booked { background-color: var(--accent-color); color: #fff; }
+.status-pill.completed { background-color: var(--link-color); color: #fff; }
 
-.plans-index-header h1 {
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--accent-color); /* Latte color */
+/* Plan Info Grid */
+.info-item .label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #aaa;
+    letter-spacing: 1.5px;
 }
-
-.plans-intro {
-    font-size: 1.2rem;
-    color: #999;
-}
-
-/* The Grid */
-.plans-grid {
-    display: grid;
-    /* Creates a responsive grid that fits as many cards as possible */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-/* The Preview Card */
-.plan-preview-card {
-    background: #fff;
-    border-radius: 16px; /* Matching Nunito softness */
-    border: 1px solid #eee;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-}
-
-/* Make the whole card clickable */
-.card-link-wrapper {
-    display: block;
-    padding: 1.5rem;
-    height: 100%;
-    color: inherit; /* Inherit text color, don't turn blue */
-    text-decoration: none; /* Remove dotted underline from global styles */
-    border: none; /* Remove border from global styles */
-}
-
-/* Hover Effects */
-.plan-preview-card:hover {
-    transform: translateY(-5px) rotate(1deg); /* Cute tilt */
-    box-shadow: 0 10px 25px rgba(198, 156, 109, 0.15); /* Soft Latte shadow */
-    border-color: var(--accent-color);
-}
-
-/* Card Internals */
-.card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.mini-date {
+.info-item .value {
     font-family: var(--font-heading);
-    color: #ccc;
-    font-size: 1.1rem;
-}
-
-.card-title {
-    font-size: 1.8rem;
-    margin: 0 0 1.5rem 0;
-    line-height: 1.1;
+    font-size: 1.5rem;
     color: var(--text-color);
 }
 
-.card-meta {
+/* Vertical Timeline Layout */
+.timeline-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 100px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-image: linear-gradient(to bottom, #ccc 50%, rgba(255,255,255,0) 0%);
+    background-position: left;
+    background-size: 2px 15px; 
+    background-repeat: repeat-y;
+}
+
+.timeline-item {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-date {
+    width: 80px; 
+    text-align: right;
+    padding-right: 2rem;
+    font-family: var(--font-heading); 
+    font-size: 1.4rem;
+    color: var(--accent-color); 
+    line-height: 1;
+}
+
+.timeline-date .year {
+    display: block;
     font-size: 0.8rem;
-    color: #888;
-    font-weight: 700;
+    color: #ccc;
+    font-family: var(--font-body);
 }
 
-.location-tag {
-    color: var(--link-color); /* Sage Green */
+.timeline-marker {
+    position: absolute;
+    left: 94px; 
+    width: 14px;
+    height: 14px;
+    background-color: var(--bg-color); 
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    z-index: 2;
+    top: 5px;
 }
 
-
-.gochi-hand-regular {
-  font-family: "Gochi Hand", cursive;
-  font-weight: 400;
-  font-style: normal;
+.timeline-item:hover .timeline-marker {
+    background-color: var(--accent-color);
+    transform: scale(1.2);
 }
 
-
-.nunito-regular {
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+.timeline-content {
+    flex: 1;
+    padding-left: 2rem;
 }
 
-/* --- STATS GRID --- */
+.timeline-card {
+    display: block;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px; 
+    border: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+    text-decoration: none;
+    border-bottom: none; 
+}
+
+.timeline-card:hover {
+    transform: translateX(5px); 
+    border-color: var(--accent-color);
+}
+
+.timeline-card h3 { margin: 0.5rem 0; font-size: 1.5rem; }
+.timeline-card .location { font-size: 0.9rem; color: #999; margin: 0; }
+
+.timeline-break {
+    text-align: center;
+    margin: 3rem 0;
+    position: relative;
+    z-index: 2;
+}
+.timeline-break span {
+    background-color: var(--bg-color);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading);
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   6. COLLECTIONS (The Bookshelf)
+   ========================================= */
+.archive-room {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.archive-header h1 {
+    font-size: 3.5rem;
+    color: var(--text-color);
+}
+
+.bookshelf {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    gap: 8px; 
+    margin-top: 3rem;
+    padding: 0 2rem;
+    height: 350px; 
+}
+
+.binder-spine {
+    display: block;
+    width: 60px;
+    height: 300px; 
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: inset 3px 0 10px rgba(0,0,0,0.1); 
+    transition: transform 0.2s, height 0.2s;
+    text-decoration: none;
+    background-color: #eee; 
+}
+
+.binder-spine:hover {
+    transform: translateY(-20px);
+    height: 310px; 
+    border-bottom: none;
+}
+
+.binder-label-holder {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 200px;
+    writing-mode: vertical-rl; 
+    text-orientation: mixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.binder-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.binder-count {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Binder Colors */
+.binder-shores { background: #5D737E; height: 320px; }
+.binder-valleys { background: #8A9A5B; height: 290px; }
+.binder-experiments { background: #D1603D; height: 310px; }
+.binder-bites { background: #C69C6D; height: 280px; }
+
+.shelf-wood {
+    height: 20px;
+    background: #8d6e63;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   7. ABOUT PAGE (User Manual) & STATS
+   ========================================= */
+.manual-container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: var(--font-body);
+}
+
+.manual-header { text-align: center; margin-bottom: 2rem; }
+
+.manual-meta {
+    background: #f4f4f4;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace; 
+    font-size: 0.85rem;
+    display: inline-block;
+    margin: 1rem 0;
+}
+
+.dashed-line {
+    border: none;
+    border-top: 2px dashed #ddd;
+    margin: 3rem 0;
+}
+
+/* Stats Sticky Notes */
 .stats-container {
     display: flex;
     flex-wrap: wrap;
@@ -272,171 +579,118 @@ nav a:hover::after {
     padding: 1.5rem;
     width: 140px;
     text-align: center;
-    
-    /* The "Sticky Note" Look */
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     border: 1px solid #eee;
-    border-radius: 2px; /* Slightly sharp edges like paper */
-    
-    /* The "Scattered" Rotation */
+    border-radius: 2px; 
     transition: transform 0.3s ease;
 }
-
-/* Rotate every odd card slightly left, even card slightly right */
 .stat-card:nth-child(odd) { transform: rotate(-2deg); }
 .stat-card:nth-child(even) { transform: rotate(2deg); }
-
-/* Hover effect */
 .stat-card:hover {
-    transform: scale(1.1) rotate(0deg) !important; /* Pop up straight */
+    transform: scale(1.1) rotate(0deg) !important;
     z-index: 10;
     box-shadow: 0 10px 25px rgba(198, 156, 109, 0.2);
 }
 
 .stat-number {
     display: block;
-    font-family: var(--font-heading); /* Gochi Hand */
+    font-family: var(--font-heading); 
     font-size: 3.5rem;
     color: var(--accent-color);
     line-height: 1;
     margin-bottom: 0.5rem;
 }
-
 .stat-label {
-    font-family: var(--font-body); /* Nunito */
+    font-family: var(--font-body); 
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #999;
     font-weight: 700;
 }
+.main-stat .stat-number { color: var(--link-color); }
 
-/* Make the Days counter distinct */
-.main-stat .stat-number {
-    color: var(--link-color); /* Sage Green */
-}
-
-/* --- VERTICAL TIMELINE --- */
-
-.timeline-wrapper {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
-/* The Vertical "Thread" */
-.timeline-wrapper::before {
-    content: '';
-    position: absolute;
-    left: 100px; /* Position line slightly to the right of dates */
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background-image: linear-gradient(to bottom, #ccc 50%, rgba(255,255,255,0) 0%);
-    background-position: left;
-    background-size: 2px 15px; /* Dashed effect */
-    background-repeat: repeat-y;
-}
-
-.timeline-item {
+/* Profile Cards (About Page) */
+.profile-grid {
     display: flex;
-    margin-bottom: 3rem;
-    position: relative;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* 1. The Date (Left Column) */
-.timeline-date {
-    width: 80px; /* Fixed width */
-    text-align: right;
-    padding-right: 2rem;
-    font-family: var(--font-heading); /* Gochi Hand */
-    font-size: 1.4rem;
-    color: var(--accent-color); /* Latte */
-    line-height: 1;
-}
-
-.timeline-date .year {
-    display: block;
-    font-size: 0.8rem;
-    color: #ccc;
-    font-family: var(--font-body);
-}
-
-/* 2. The Marker (The Dot) */
-.timeline-marker {
-    position: absolute;
-    left: 94px; /* Centers it on the 100px line */
-    width: 14px;
-    height: 14px;
-    background-color: var(--bg-color); /* Match page bg */
-    border: 2px solid var(--accent-color);
-    border-radius: 50%;
-    z-index: 2;
-    top: 5px;
-}
-
-/* Hover effect for marker */
-.timeline-item:hover .timeline-marker {
-    background-color: var(--accent-color);
-    transform: scale(1.2);
-}
-
-/* 3. The Card (Right Column) */
-.timeline-content {
+.profile-card {
     flex: 1;
-    padding-left: 2rem;
-}
-
-.timeline-card {
-    display: block;
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 12px; /* Nunito soft corners */
-    border: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-    transition: transform 0.2s;
-    text-decoration: none;
-    border-bottom: none; /* Override global link style */
-}
-
-.timeline-card:hover {
-    transform: translateX(5px); /* Slide right on hover */
-    border-color: var(--accent-color);
-}
-
-.timeline-card h3 {
-    margin: 0.5rem 0;
-    font-size: 1.5rem;
-}
-
-.timeline-card .location {
-    font-size: 0.9rem;
-    color: #999;
-    margin: 0;
-}
-
-/* The "Bucket List" Divider */
-.timeline-break {
-    text-align: center;
-    margin: 3rem 0;
+    min-width: 280px;
+    padding: 2rem;
+    border-radius: 12px;
     position: relative;
-    z-index: 2;
+    border: 2px solid #eee;
+}
+.card-reflector { background: #f9f9f9; border-color: #ccc; }
+.card-generator { background: #fff8f0; border-color: var(--accent-color); }
+
+.card-icon {
+    font-size: 2.5rem;
+    position: absolute;
+    top: -25px;
+    right: 20px;
+    background: var(--bg-color);
 }
 
-.timeline-break span {
-    background-color: var(--bg-color);
-    padding: 0.5rem 1rem;
-    font-family: var(--font-heading);
-    color: #aaa;
-    font-size: 1.2rem;
+.profile-card h3 { margin-top: 0; }
+.role {
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
 }
+.specs-list { padding-left: 1rem; list-style-type: square; }
+.specs-list li { margin-bottom: 0.8rem; line-height: 1.4; }
 
-/* --- MOBILE ADJUSTMENT --- */
-/* On phones, hide the date column and just show the cards */
+.troubleshoot-section {
+    background: #fff;
+    border: 2px dashed #ddd;
+    padding: 2rem;
+    border-radius: 8px;
+}
+.troubleshoot-item { margin-bottom: 1.5rem; }
+.troubleshoot-item h4 { margin-bottom: 0.5rem; color: var(--link-color); }
+
+/* =========================================
+   8. MOBILE / RESPONSIVE TWEAKS
+   ========================================= */
+
 @media (max-width: 600px) {
+    /* Timeline: Hide Dates */
     .timeline-wrapper::before { left: 20px; }
     .timeline-date { display: none; }
     .timeline-marker { left: 14px; }
     .timeline-content { padding-left: 3rem; }
+    
+    /* Homepage: Less chaotic rotation on small screens */
+    .fridge-header h1 { font-size: 3rem; }
+    .fridge-dashboard { gap: 2rem; }
+    .fridge-item { transform: rotate(0deg) !important; margin-bottom: 1rem; }
+    
+    /* Bookshelf: Allow wrapping so it doesn't break */
+    .bookshelf { 
+        flex-wrap: wrap; 
+        height: auto; 
+    }
+    .binder-spine {
+        width: 100%;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+    .binder-label-holder {
+        writing-mode: horizontal-tb;
+        top: 0;
+        height: 100%;
+        left: 0;
+        transform: none;
+        width: 100%;
+    }
+    .binder-spine:hover { transform: translateX(5px); }
 }

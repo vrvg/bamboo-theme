@@ -1,7 +1,71 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+<div class="fridge-container">
+
+    <header class="fridge-header">
+        <h1>Hi Soohyun <3</h1>
+        <p>Here is what's happening in our world.</p>
+    </header>
+
+    <div class="fridge-dashboard">
+    
+        {{ $plans := where .Site.RegularPages "Section" "plans" }}
+        {{ $future_plans := where $plans "Params.target_date" "ge" (now.Format "2006-01-02") }}
+        
+        {{ with index ($future_plans.ByParam "target_date") 0 }} 
+        <div class="fridge-item fridge-note sticky-yellow">
+            <span class="tape"></span>
+            <span class="note-label">📅 Up Next</span>
+            
+            <h3 class="handwritten-title">{{ .Title }}</h3>
+            
+            <div class="note-details">
+                {{ if .Params.target_date }}
+                <p class="when">{{ .Params.target_date | time.Format "Monday, Jan 2" }}</p>
+                {{ end }}
+                {{ if .Params.location }}
+                <p class="where">📍 {{ .Params.location }}</p>
+                {{ end }}
+            </div>
+
+            <a href="{{ .RelPermalink }}" class="drawn-button">See Plan →</a>
+        </div>
+        {{ else }}
+        <div class="fridge-item fridge-note sticky-blue">
+            <span class="tape"></span>
+            <span class="note-label">✨ Status</span>
+            <h3 class="handwritten-title">No plans yet.</h3>
+            <p>Time to dream up something new?</p>
+            <a href="/plans" class="drawn-button">Go to Archive →</a>
+        </div>
+        {{ end }}
+
+        {{ $posts := where .Site.RegularPages "Section" "posts" }}
+        {{ with index $posts 0 }}
+        <div class="fridge-item fridge-polaroid">
+            <span class="pin">📌</span>
+            
+            <div class="polaroid-frame">
+                {{ if .Params.image }}
+                    <img src="{{ .Params.image }}" alt="Memory">
+                {{ else }}
+                    <div class="no-photo">📝</div>
+                {{ end }}
+            </div>
+
+            <div class="polaroid-caption">
+                <p class="caption-label">Latest Memory:</p>
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </div>
+        </div>
+        {{ end }}
+
+        <div class="fridge-item fridge-magnet">
+            <a href="/about">
+                <span class="magnet-icon">🧸</span>
+                <span class="magnet-text">Read the<br>Manual</span>
+            </a>
+        </div>
+
+    </div>
+</div>
 {{ end }}

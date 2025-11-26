@@ -1,23 +1,23 @@
-{{- /*
-For a given taxonomy, renders a list of terms assigned to the page.
+{{ define "main" }}
+<div class="archive-room">
+    
+    <header class="archive-header">
+        <h1>The Shelf 📚</h1>
+        <p>Our stories, sorted by vibe.</p>
+    </header>
 
-@context {page} page The current page.
-@context {string} taxonomy The taxonomy.
+    <div class="bookshelf">
+        {{ range .Data.Terms }}
+        <a href="{{ .Page.RelPermalink }}" class="binder-spine binder-{{ .Page.Title | lower }}">
+            <div class="binder-label-holder">
+                <span class="binder-title">{{ .Page.Title }}</span>
+            </div>
+            <span class="binder-count">{{ .Count }}</span>
+        </a>
+        {{ end }}
+    </div>
 
-@example: {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-*/}}
+    <div class="shelf-wood"></div>
 
-{{- $page := .page }}
-{{- $taxonomy := .taxonomy }}
-
-{{- with $page.GetTerms $taxonomy }}
-  {{- $label := (index . 0).Parent.LinkTitle }}
-  <div>
-    <div>{{ $label }}:</div>
-    <ul>
-      {{- range . }}
-        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-      {{- end }}
-    </ul>
-  </div>
-{{- end }}
+</div>
+{{ end }}
