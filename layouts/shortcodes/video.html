@@ -1,0 +1,17 @@
+<figure class="cinema-container">
+    <div class="video-frame">
+        <video controls playsinline preload="metadata" width="100%">
+            {{ $src := .Get "src" | default (.Get 0) }}
+            
+            <source src="{{ $src }}">
+            <p>Browser cannot play this video.</p>
+        </video>
+    </div>
+    
+    {{ if or (.Get "caption") (.Get 1) }}
+    <figcaption class="video-caption">
+        <span class="tape-strip"></span>
+        {{ .Get "caption" | default (.Get 1) }}
+    </figcaption>
+    {{ end }}
+</figure>

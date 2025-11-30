@@ -7,9 +7,16 @@
 
 <div class="timeline-wrapper">
 
-    {{ $dated := where .Pages "Params.target_date" "!=" nil }}
+    {{ $dated := where .Pages "Params.target_date" "ne" nil }}
+    {{ $dated = where $dated "Params.target_date" "ne" "" }}
+    
     {{ range ($dated.ByParam "target_date") }}
     
+    {{ $isPast := false }}
+    {{ if lt (.Params.target_date | time.AsTime) now }}
+        {{ $isPast = true }}
+    {{ end }}
+
     <div class="timeline-item">
         <div class="timeline-marker"></div>
 
@@ -19,13 +26,32 @@
         </div>
 
         <div class="timeline-content">
-            <a href="{{ .RelPermalink }}" class="timeline-card">
-                <span class="status-pill {{ .Params.status | urlize }}">{{ .Params.status }}</span>
-                <h3>{{ .Title }}</h3>
+            <div class="timeline-card">
+                
+                <span class="status-pill {{ if $isPast }}completed{{ else }}{{ .Params.status | urlize }}{{ end }}">
+                    {{ if $isPast }}
+                        ✅ History
+                    {{ else }}
+                        {{ if eq .Params.status "Booked" }} 🎟️ Booked
+                        {{ else }} 💭 Dreaming {{ end }}
+                    {{ end }}
+                </span>
+
+                <h3><a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit;">{{ .Title }}</a></h3>
+                
                 {{ if .Params.location }}
                 <p class="location">📍 {{ .Params.location }}</p>
                 {{ end }}
-            </a>
+
+                {{ if .Params.memory_link }}
+                <div class="memory-bridge">
+                    <a href="{{ .Params.memory_link }}" class="read-story-btn">
+                        Read the Story 📸
+                    </a>
+                </div>
+                {{ end }}
+
+            </div>
         </div>
     </div>
     {{ end }}

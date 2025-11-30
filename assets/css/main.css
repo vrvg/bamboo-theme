@@ -694,3 +694,80 @@ nav a:hover::after {
     }
     .binder-spine:hover { transform: translateX(5px); }
 }
+
+/* --- THE MEMORY BRIDGE BUTTON --- */
+
+.memory-bridge {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px dashed #eee; /* A tear-off line */
+}
+
+.read-story-btn {
+    display: inline-block;
+    background-color: var(--link-color); /* Sage Green */
+    color: #fff !important; /* Force white text */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    border: none; /* No underline */
+    transform: rotate(-1deg);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+.read-story-btn:hover {
+    transform: rotate(1deg) scale(1.05);
+    background-color: var(--accent-color); /* Latte hover */
+    border-bottom: none; /* Remove global link style */
+}
+
+/* --- CINEMA VIDEO PLAYER --- */
+.cinema-container {
+    margin: 3rem 0;
+    text-align: center;
+    max-width: 100%;
+}
+
+.video-frame {
+    background: #222; /* Dark theater background */
+    padding: 10px;     /* The spacing creates the "Frame" look */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Deep shadow */
+    transform: rotate(1deg); /* Slight imperfection */
+    transition: transform 0.3s ease;
+}
+
+.video-frame:hover {
+    transform: rotate(0deg) scale(1.01);
+}
+
+.cinema-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 4px; /* Slight rounding on the video itself */
+    display: block;
+}
+
+.video-caption {
+    margin-top: 1.5rem;
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+}
+
+/* Re-using your Tape effect */
+.video-caption .tape-strip {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 60px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0,0,0,0.05);
+}
